@@ -1,0 +1,30 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>Minecraft Server Status</title>
+    <script>
+        async function getStatus() {
+        const server = "fantasymedieval.kro.kr"; // your server address
+        const response = await fetch(`https://api.mcsrvstat.us/2/${server}`);
+        const data = await response.json();
+        
+        let statusBox = document.getElementById("status");
+        if (data.online) {
+            statusBox.innerHTML = `
+            ✅ Server is <b>Online</b><br>
+            Players: ${data.players.online}/${data.players.max}<br>
+            Version: ${data.version}
+            `;
+        } else {
+            statusBox.innerHTML = "❌ Server is Offline";
+        }
+        }
+        window.onload = getStatus;
+    </script>
+    </head>
+    <body style="font-family: Arial; text-align: center; margin-top: 50px;">
+    <h1>Fantasy Medieval Server Status</h1>
+    <div id="status">Loading...</div>
+    </body>
+    </html>
